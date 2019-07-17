@@ -11,6 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="3" />
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="include" />
@@ -40,13 +41,17 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="C:/Users/pamar/Downloads/SFML-2.5.1/include" />
+			<Add option="-std=c++11" />
+			<Add directory="$(#sfml2_5_1.INCLUDE)" />
 		</Compiler>
 		<Linker>
-			<Add directory="C:/Users/pamar/Downloads/SFML-2.5.1/lib" />
+			<Add directory="$(#sfml2_5_1.LIB)" />
 		</Linker>
+		<Unit filename="arial.ttf" />
+		<Unit filename="include/case.h" />
 		<Unit filename="include/game.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/case.cpp" />
 		<Unit filename="src/game.cpp" />
 		<Extensions>
 			<code_completion />
