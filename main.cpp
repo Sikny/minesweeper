@@ -1,13 +1,32 @@
-#include <iostream>
-
 #include "game.h"
 
 int main(int argc, char** argv){
-    std::cout << "--- Minesweeper game ---" << std::endl 
-        << "Select difficulty :" << std::endl 
-        << "1: Easy     2: Normal     3: Hard" << std::endl;
-    unsigned short dif;
-    std::cin >> dif;
-    (new Game(dif))->start();
-    return 0;
+    int difficulty;
+    if(argc > 1){
+        difficulty = atoi(argv[1]);
+    } else difficulty = 1;
+    int boardSize, nBombs;
+    std::string difficulty_str;
+    switch(difficulty){
+        case 1:
+            boardSize = 10;
+            nBombs = 15;
+            difficulty_str = "Easy";
+            break;
+        case 2:
+            boardSize = 15;
+            nBombs = 50;
+            difficulty_str = "Normal";
+            break;
+        case 3:
+            boardSize = 20;
+            nBombs = 100;
+            difficulty_str = "Hard";
+            break;
+        default:
+            std::cout << "Invalid difficulty number: " << difficulty << std::endl;
+            std::exit(EXIT_FAILURE);
+    }
+    Game game(difficulty_str, boardSize, nBombs);
+    game.run();
 }

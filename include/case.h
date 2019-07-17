@@ -1,13 +1,17 @@
-#include <iostream>
+#ifndef CASE_H
+#define CASE_H
+
 #include <SFML/Graphics.hpp>
 
-class Case{
+class Case
+{
     public:
         Case();
-        Case(float x, float y, unsigned short indX, unsigned short indY, float caseSize);
-        unsigned short getX();
-        unsigned short getY();
-        void draw(sf::RenderWindow&, sf::Font);
+        Case(float x, float y, int indX, int indY, float caseSize);
+        void setFont(sf::Font*);
+        int getX();
+        int getY();
+        void draw(sf::RenderWindow&);
         void hover();
         std::string select(Case* board);
         void unhover();
@@ -16,16 +20,20 @@ class Case{
         bool hasBomb();
         bool isReturned();
         std::string getStatus();
-        unsigned short testCase(Case* board);
-        void setLimits(unsigned short min, unsigned short max);
+        int testCase(Case* board);
+        void setLimits(int min, int max);
+
     private:
         float posX, posY;
-        unsigned short indX, indY;
-        unsigned short min, max;
+        int indX, indY;
+        int min, max;
         float caseSize;
         sf::Color color;
         sf::Color fontColor;
         bool bomb, returned;
         sf::Text status;
         sf::RectangleShape shape;
+        sf::Font* font;
 };
+
+#endif // CASE_H

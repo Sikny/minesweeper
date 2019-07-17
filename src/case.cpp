@@ -2,9 +2,9 @@
 
 Case::Case(){}
 
-Case::Case(float x, float y, unsigned short indX_p, unsigned short indY_p, float caseSize_p) 
-: posX(x), posY(y), indX(indX_p), indY(indY_p), caseSize(caseSize_p), 
-color(sf::Color::White), fontColor(sf::Color::Blue), bomb(false), 
+Case::Case(float x, float y, int indX_p, int indY_p, float caseSize_p)
+: posX(x), posY(y), indX(indX_p), indY(indY_p), caseSize(caseSize_p),
+color(sf::Color::White), fontColor(sf::Color::Blue), bomb(false),
 returned(false), status(sf::Text()){
     shape = sf::RectangleShape(sf::Vector2f(caseSize, caseSize));
     shape.setPosition(posX, posY);
@@ -13,15 +13,19 @@ returned(false), status(sf::Text()){
     status.setPosition(posX+caseSize/4, posY-caseSize/8);
 }
 
-unsigned short Case::getX(){
+void Case::setFont(sf::Font* font_p){
+    font = font_p;
+    status.setFont(*font);
+}
+
+int Case::getX(){
     return indX;
 }
-unsigned short Case::getY(){
+int Case::getY(){
     return indX;
 }
 
-void Case::draw(sf::RenderWindow& window, sf::Font font){
-    status.setFont(font);
+void Case::draw(sf::RenderWindow& window){
     shape.setFillColor(color);
     status.setFillColor(fontColor);
     window.draw(shape);
@@ -39,7 +43,7 @@ std::string Case::select(Case* board){
     if(bomb) return "You lose";
     else {
         // Counting bombs around
-        unsigned short nBombs = 0;
+        int nBombs = 0;
         for(short i = indX-1; i <= indX+1; i++){
             for(short j = indY-1; j <= indY+1; j++){
                 if(i >= min && i <= max && j >= min && j <= max){
@@ -92,7 +96,7 @@ void Case::unhover(){
 }
 
 bool Case::hasMouseOver(sf::Vector2i mousePos){
-    return (mousePos.x >= posX && mousePos.y >= posY 
+    return (mousePos.x >= posX && mousePos.y >= posY
         && mousePos.x <= posX+caseSize && mousePos.y <= posY+caseSize);
 }
 
@@ -108,7 +112,7 @@ std::string Case::getStatus(){
     return status.getString().toAnsiString();
 }
 
-void Case::setLimits(unsigned short min_p, unsigned short max_p){
+void Case::setLimits(int min_p, int max_p){
     min = min_p;
     max = max_p;
 }
